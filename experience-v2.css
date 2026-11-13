@@ -125,3 +125,65 @@ main.wrap{max-width:1320px}
  .w-foot{padding-inline:18px}
 }
 @media(prefers-reduced-motion:reduce){.hero-sheet,.hero-event,.btn{animation:none!important;transition:none!important}}
+
+
+/* Селектор смены: сначала возраст и даты, затем простая запись */
+.pf-panel{width:min(100%,920px);max-height:min(92vh,920px);border-radius:30px;background:#f5f6f2;overflow:hidden;box-shadow:0 34px 110px rgba(0,0,0,.28)}
+.pf-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:20px;padding:30px 34px 22px;border-bottom:1px solid #e3e5df}
+.pf-head>div{min-width:0}
+.pf-eyebrow{margin:0 0 8px;color:#607348;font-size:10px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
+.pf-head h2{font-size:clamp(30px,4vw,42px);font-weight:820;letter-spacing:-.075em;line-height:.98;color:#161914}
+.pf-intro{max-width:580px;margin-top:12px;color:#6d7468;font-size:15px;line-height:1.5}
+.pf-body{padding:24px 34px 34px;overflow:auto}
+.pf-filter{padding:20px 22px;border:1px solid #e1e5da;border-radius:20px;background:#fff}
+.pf-filter label{display:flex;align-items:center;gap:10px;margin-bottom:11px;font-size:13px;font-weight:800;color:#343a30}
+.pf-filter label span{font-size:11px;font-weight:600;color:#92988d;text-transform:uppercase;letter-spacing:.06em}
+.pf-input-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+.pf-input-row input{width:100%;min-height:52px;padding:12px 14px;border:1px solid #dfe3d9;border-radius:13px!important;background:#f7f8f5;color:#171a16;font:inherit;font-size:16px}
+.pf-input-row input:focus{outline:3px solid rgba(49,93,255,.14);border-color:#315dff}
+.pf-clear{border:0;border-radius:12px;padding:0 16px;background:#edf0e8;color:#40483a;font-size:13px;font-weight:750;cursor:pointer}
+.pf-clear:hover{background:#e1e7d8}
+.pf-filter>p{margin-top:9px;color:#90958c;font-size:12px;line-height:1.4}
+.pf-results-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:25px 2px 12px}
+.pf-results-head b{font-size:20px;letter-spacing:-.045em}
+.pf-results-head span{font-size:12px;color:#858b80;font-weight:650}
+.pf-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pf-card{display:flex;flex-direction:column;gap:18px;min-width:0;padding:20px;border:1px solid #e4e7df;border-radius:21px;background:#fff;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.pf-card:hover{transform:translateY(-2px);border-color:#cbd4bf;box-shadow:0 16px 35px rgba(25,35,20,.07)}
+.pf-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pf-date{font-size:11px;color:#6d7468;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.pf-spots{font-size:11px;color:#9b6a45;font-weight:750;text-align:right}
+.pf-spots.available{color:#4f762d}
+.pf-card-main{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;min-height:98px}
+.pf-card-main>div{min-width:0}
+.pf-type{margin:0 0 8px;color:#81916d;font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.pf-card h3{font-size:clamp(21px,2.4vw,27px);font-weight:820;letter-spacing:-.06em;line-height:1.02;color:#171b15}
+.pf-meta{margin-top:10px;color:#777e72;font-size:12px;line-height:1.4}
+.pf-price{flex:none;font-size:23px;letter-spacing:-.06em;white-space:nowrap;color:#171b15}
+.pf-price small{display:block;margin-top:4px;color:#8a9085;font-size:10px;font-weight:600;letter-spacing:0;text-align:right}
+.pf-card-foot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;margin-top:auto}
+.pf-action{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 15px;border:1px solid transparent;border-radius:999px;font-size:12px;font-weight:800;text-decoration:none;cursor:pointer;white-space:nowrap}
+.pf-action.primary{background:#171b15;color:#d8ff64}
+.pf-action.primary:hover{background:#343b2e}
+.pf-action.secondary{background:#f2f4ee;border-color:#e4e7df;color:#343a30}
+.pf-action.secondary:hover{background:#e8ece2}
+.pf-empty{display:grid;justify-items:start;gap:10px;padding:26px;border:1px dashed #cfd7c5;border-radius:20px;background:#fff}
+.pf-empty b{font-size:18px;letter-spacing:-.04em}
+.pf-empty span{color:#7a8175;font-size:13px}
+@media(max-width:759px){
+ .pf-panel{width:100%;max-height:94dvh;border-radius:26px 26px 0 0}
+ .pf-head{padding:24px 20px 18px;gap:12px}
+ .pf-head h2{font-size:32px}
+ .pf-intro{font-size:13px}
+ .pf-body{padding:17px 16px 28px}
+ .pf-filter{padding:16px;border-radius:16px}
+ .pf-input-row{grid-template-columns:1fr}
+ .pf-clear{min-height:42px}
+ .pf-results{grid-template-columns:1fr;gap:10px}
+ .pf-card{padding:17px;border-radius:17px;gap:14px}
+ .pf-card-main{min-height:0}
+ .pf-card h3{font-size:23px}
+ .pf-card-foot{grid-template-columns:.8fr 1.2fr}
+ .pf-action{padding-inline:10px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.pf-card{transition:none}}
