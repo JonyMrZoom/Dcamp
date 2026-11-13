@@ -29,7 +29,7 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 20 
 app.set("trust proxy", 1);
 app.disable("x-powered-by");
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" }, contentSecurityPolicy: false }));
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "40mb" }));
 app.use(express.urlencoded({ extended: false, limit: "1mb" }));
 app.use(rateLimit({ windowMs: 60_000, limit: 180, standardHeaders: "draft-8", legacyHeaders: false }));
 
@@ -106,12 +106,12 @@ async function migrate() {
   await pool.query(sql);
   const email = text(process.env.ADMIN_EMAIL).toLowerCase();
   const password = text(process.env.ADMIN_PASSWORD);
-  if (!email || !password || password === "change-this-before-launch") throw new Error("Set ADMIN_EMAIL and ADMIN_PASSWORD before starting the application");
+  if (!email || !password || password === "change-this-before-launch" || password.length < 12) throw new Error("Set ADMIN_EMAIL and an ADMIN_PASSWORD with at least 12 characters before starting the application");
   if (email && password && password !== "change-this-before-launch") {
     const hash = scryptHash(password);
     await pool.query(
       `INSERT INTO admins(email,password_hash,display_name,role,active) VALUES($1,$2,'Владелец','owner',TRUE)
-       ON CONFLICT(email) DO UPDATE SET password_hash=EXCLUDED.password_hash, active=TRUE, updated_at=NOW()`,
+       ON CONFLICT(email) DO NOTHING`,
       [email, hash]
     );
   }
@@ -163,7 +163,7 @@ app.get("/api/public/shifts", async (_req, res, next) => {
   } catch (error) { next(error); }
 });
 
-app.post("/api/public/bookings", async (req, res, next) => {
+app.post("/api/public/bookings", rateLimit({ windowMs: 10 * 60_000, limit: 8, standardHeaders: "draft-8", legacyHeaders: false }), async (req, res, next) => {
   const client = await pool.connect();
   try {
     const parentName = text(req.body.parentName), phone = phoneDigits(req.body.phone);
@@ -248,7 +248,7 @@ app.post("/api/public/bookings", async (req, res, next) => {
   } finally { client.release(); }
 });
 
-app.post("/api/public/waitlist", async (req, res, next) => {
+app.post("/api/public/waitlist", rateLimit({ windowMs: 10 * 60_000, limit: 6, standardHeaders: "draft-8", legacyHeaders: false }), async (req, res, next) => {
   try {
     const shiftId = text(req.body.shiftId), parentName = text(req.body.parentName), phone = phoneDigits(req.body.phone);
     const childName = text(req.body.childName), childAge = Number(req.body.childAge);
