@@ -575,7 +575,8 @@ app.use(express.static(join(ROOT,"web"),{extensions:["html"],maxAge:process.env.
 app.use("/img",express.static(join(ROOT,"img"),{maxAge:"7d"}));
 app.use("/icons",express.static(join(ROOT,"icons"),{maxAge:"7d"}));
 app.get("/admin",(_req,res)=>res.sendFile(join(ROOT,"web","admin.html")));
-app.get("*",(req,res,next)=>{
+app.use((req,res,next)=>{
+  if(req.method!=="GET")return next();
   if(req.path.startsWith("/api/"))return res.status(404).json({ok:false,error:"API route not found"});
   res.sendFile(join(ROOT,"web","index.html"),error=>error&&next(error));
 });
