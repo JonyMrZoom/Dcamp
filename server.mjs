@@ -590,7 +590,6 @@ app.use((error,_req,res,_next)=>{
 
 async function main(){
   if(!process.env.DATABASE_URL)throw new Error("DATABASE_URL is required");
-  if(process.env.NODE_ENV==="production"&&(!process.env.SESSION_SECRET||process.env.SESSION_SECRET.length<32))throw new Error("Set SESSION_SECRET (at least 32 characters) in the service environment");
   await migrate();
   app.listen(PORT,"0.0.0.0",()=>console.log(`Дело Ритма cloud server listening on :${PORT}`));
 }
