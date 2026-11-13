@@ -2294,7 +2294,7 @@ function openShift(id, keepFocus) {
       ${statsHTML(s, true)}
       ${joinedHTML(s)}
       ${canBook(s) ? deadlineBoxHTML(s) : closedHTML(s)}
-      ${canBook(s) ? `<div class="side-cta"><div class="price">${rub(s.price)}<small>${isTraining(s) ? "за тренировку" : "за всю смену"} · бронь бесплатная</small></div><button class="btn primary block attn" data-book="${esc(s.id)}">${hasDraft ? "Продолжить заявку" : "Записать ребёнка"}</button><p class="note left">${esc(CONFIG.BOOKING_NOTE)}</p></div>` : ""}
+      ${canBook(s) ? `<div class="side-cta"><div class="price">${rub(s.price)}<small>${isTraining(s) ? "за тренировку" : "за всю смену"} · бронь бесплатная</small></div><button class="btn primary block attn" data-book="${esc(s.id)}">${hasDraft ? "Продолжить заявку" : "Записать ребёнка"}</button><p class="note left">${esc(CONFIG.BOOKING_NOTE)} Онлайн-оплата не списывается: это заявка на бронь, администратор свяжется для подтверждения.</p></div>` : ""}
       </aside>
       <div class="sh-main">
       ${s.short ? `<p class="sh-short">${esc(s.short)}</p>` : ""}
@@ -2549,7 +2549,9 @@ const STEPS = {
       <section class="sum">
         <div><span>Телефон</span><b>${esc(prettyPhone(normPhone(f.phone)))}</b><button type="button" class="link-edit" data-edit="who" aria-label="Изменить телефон">Изменить</button></div>
         ${camp ? `<div><span>Трансфер</span><b>${f.transfer ? (many ? "Нужен для всех" : "Нужен") : "Не нужен"}</b><button type="button" class="link-edit" data-edit="transfer" aria-label="Изменить трансфер">Изменить</button></div>` : ""}
-        <div><span>Итого</span><b>${W.children.length} ${plural(W.children.length,["место","места","мест"])} · ${rub(current.price * W.children.length)}</b><span></span></div>
+        <div><span>Цена за одного ребёнка</span><b>${rub(current.price)}</b><span></span></div>
+        <div><span>Количество детей</span><b>${W.children.length} ${plural(W.children.length,["ребёнок","ребёнка","детей"])}</b><span></span></div>
+        <div class="pf-total"><span>Итого за смену</span><b>${rub(current.price * W.children.length)}</b><span></span></div>
       </section>
       <div class="fld"><label for="w-comment">Пожелания (необязательно)</label><input id="w-comment" value="${esc(f.comment || "")}" placeholder="Например: дети хотят жить в одной комнате"></div>
       <p class="note left">${esc(CONFIG.BOOKING_NOTE)}</p>
