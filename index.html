@@ -2718,6 +2718,7 @@ document.addEventListener("click", e => {
   if (t.closest("#dock-btn")) return toggleDock();
   if (!t.closest("#dock") && !$("#dock-panel").hidden) toggleDock(false);
   if (t.closest("[data-retry]")) { $("#next").innerHTML = `<div class="hero-event-skeleton">Загружаем ближайшую смену…</div>`; return load(); }
+  if (t.closest("[data-pick-clear]")) { const field = $("#pick-birth"); if (field) { field.value = ""; renderPickerResults(); field.focus(); } return; }
   if (t.closest("[data-to-reviews]")) { e.preventDefault(); location.hash = "#camp"; setTimeout(() => document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80); return; }
   const hb = t.closest("[data-hero-book]"); if (hb) { track("hero_book"); return hb.dataset.id ? openWizard(hb.dataset.id) : openPicker(); }
   if (t.closest("[data-hero-scroll]")) { e.preventDefault(); return $("#more").scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "start" }); }
