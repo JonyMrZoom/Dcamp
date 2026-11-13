@@ -1,6 +1,6 @@
 /* Дело Ритма — сервис-воркер: приложение открывается без интернета и показывает последнюю загруженную афишу.
    При каждом обновлении сайта увеличьте номер версии ниже, чтобы телефоны подтянули новую версию. */
-const VERSION = "dr-v31";
+const VERSION = "dr-v32";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", e => {
