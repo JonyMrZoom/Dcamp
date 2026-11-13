@@ -193,3 +193,6 @@ main.wrap{max-width:1320px}
 .pf-total b{font-size:21px;color:#171b15}
 .w-step .sum .pf-total{margin-top:4px}
 .w-step .sum .pf-total b{font-size:20px}
+
+.pf-panel{height:min(92dvh,920px);display:flex;flex-direction:column}.pf-head{flex:none}.pf-body{flex:1;min-height:0}
+@media(max-width:759px){.pf-panel{height:94dvh}.pf-body{flex:1;min-height:0}}
