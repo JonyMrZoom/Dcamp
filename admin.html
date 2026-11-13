@@ -209,30 +209,12 @@ dialog .dl-acts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;f
 @media (max-width:1023px){.pv-wrap{order:2}}
 @media (max-width:420px){.types,.row2{grid-template-columns:1fr}.top .who small{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* Responsive admin polish */
+html{scroll-padding-top:76px;-webkit-text-size-adjust:100%}body{min-width:320px;overflow-x:hidden}button,a,input,textarea,select{touch-action:manipulation}.wrap{width:min(100% - 32px,1120px)}.top{padding-top:env(safe-area-inset-top,0px)}.card{min-width:0}input,textarea,select{font-size:16px;max-width:100%}.btn:focus-visible,.chip:focus-visible,.back:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+@media(max-width:680px){.wrap{width:calc(100% - 28px);padding-left:0;padding-right:0}.top .wrap{min-height:58px;gap:8px}.top img{height:36px;max-width:118px;object-fit:contain}.top .who{font-size:14px}.top .who small{font-size:11px}.top .link{font-size:13px;padding:6px 2px}.head{padding:22px 0 14px;align-items:stretch}.head h1{font-size:30px}.adds{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px}.add{min-width:0;padding:8px 10px;gap:8px;font-size:14px}.add i{width:34px;height:34px;font-size:20px}.tabs{width:100%;display:grid;grid-template-columns:1fr 1fr}.tabs button{padding:10px 8px}.grid{grid-template-columns:minmax(0,1fr);gap:12px}.card{grid-template-columns:minmax(0,1fr)}.cv{aspect-ratio:16/7}.cb{padding:14px}.ed{gap:18px;padding-top:14px}.row2{grid-template-columns:1fr;gap:12px}.acts{flex-wrap:wrap}.acts .btn{min-width:0}.login-card{padding:26px 20px}}
+@media(max-width:380px){.adds{grid-template-columns:1fr}.top .who small{max-width:130px;white-space:normal}.head h1{font-size:27px}.acts{display:grid;grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style>
-<style id="delo-admin-polish-v1">
-:root{--bg:#F7F8F3;--page:#F7F8F3;--surface:#EFF3EB;--surface-2:#E7EDE3;--ink:#18221B;--muted:#68746B;--line:#E1E8DE;--line-2:#D6E0D3;--yellow:#C9F06B;--yellow-soft:#F1F8DF;--violet:#2E7057;--ok:#16845D;--shadow:0 18px 48px -34px rgba(23,43,28,.34)}
-html{scroll-behavior:smooth;scroll-padding-top:86px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{min-width:320px;overflow-x:hidden;background:var(--page)}
-.wrap{width:min(100% - 40px,1120px)}
-.top{box-shadow:0 1px 0 rgba(24,34,27,.035)}
-.top .wrap{min-height:68px}
-.btn{border-radius:14px;transition:transform .16s ease,background-color .16s ease,box-shadow .16s ease}
-.btn.primary{background:var(--yellow);color:#18221B;box-shadow:0 5px 0 rgba(94,125,49,.10)}
-.btn.primary:hover{background:#D8F78E;color:#18221B;transform:translateY(-1px)}
-.add{border-radius:18px;box-shadow:0 8px 20px -16px rgba(0,0,0,.35)}
-.add.camp{background:#2E7057}.add.training{background:#477F9B}
-.login-card,.sec,.pv,.card,details.more{border-radius:22px}
-input[type=text],input[type=password],input[type=number],input[type=date],input[type=url],textarea,select{border-radius:13px;max-width:100%}
-input:focus,textarea:focus,select:focus{outline:none;border-color:#2E7057;box-shadow:0 0 0 3px rgba(46,112,87,.12)}
-:focus-visible{outline:3px solid #2E7057;outline-offset:3px}
-.savebar{background:rgba(247,248,243,.94);box-shadow:0 -10px 30px -28px rgba(20,40,25,.4)}
-@media(min-width:1024px){.ed-grid{grid-template-columns:minmax(0,1fr) 380px;gap:36px}.pv-wrap{top:88px}}
-@media(max-width:599px){.wrap{width:calc(100% - 28px);padding-left:0;padding-right:0}.top .wrap{min-height:60px;gap:8px}.top img{height:34px}.top .who{font-size:14px}.top .link{font-size:13px;padding:7px 2px}.head{padding-top:22px}.head h1{font-size:29px}.adds{width:100%}.add{flex:1;min-width:0;padding:9px 12px}.tabs{max-width:100%}.savebar{padding:9px 0 calc(9px + env(safe-area-inset-bottom,0px))}.savebar .wrap{gap:8px}.savebar .btn{min-height:48px;padding-inline:12px}.savebar .btn.primary{flex:1.4}.row2{gap:10px}.sec{padding:16px}.login-card{padding:26px 20px}}
-@media(max-width:420px){.types,.row2{grid-template-columns:1fr}.top .who small{display:none}.head{gap:12px}.add{font-size:14px}.add small{font-size:12px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.add{transition:none!important}}
-</style>
-
 </head>
 <body>
 
@@ -267,6 +249,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#2E7057;box-sh
       <div><h1>Смены лагеря</h1><p>Нажмите «Изменить», чтобы поправить даты, постер или описание.</p></div>
       <div class="adds">
         <button class="add camp" data-new="camp"><i aria-hidden="true">+</i><span>Новый лагерь<small>смена на несколько дней</small></span></button>
+        <button class="add training" data-new="training"><i aria-hidden="true">＋</i><span>Новая тренировка<small>одно занятие</small></span></button>
       </div>
     </div>
     <div class="tabs" role="tablist" aria-label="Какие показать">
@@ -285,6 +268,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#2E7057;box-sh
           <section class="sec"><h2><i>1</i>Что проводим?</h2>
             <div class="types">
               <button type="button" class="type camp" data-type="camp" aria-pressed="true"><b>Лагерь</b><small>Выезд на несколько дней</small></button>
+              <button type="button" class="type training" data-type="training" aria-pressed="false"><b>Тренировка</b><small>Одно занятие</small></button>
             </div>
           </section>
 
@@ -373,7 +357,8 @@ const CONFIG = {
   API_URL: "",
   SITE_URL: "index.html",
   DEFAULTS: {
-    camp: { price: 22000, capacity: 50, ages: "7–16", closeDays: 14, titles: ["Новогодняя смена", "Весенняя смена", "Летняя смена", "Осенняя смена"] }
+    camp: { price: 22000, capacity: 50, ages: "7–16", closeDays: 14, titles: ["Новогодняя смена", "Весенняя смена", "Летняя смена", "Осенняя смена"] },
+    training: { price: "", capacity: 50, ages: "7–16", closeDays: 1, titles: ["Общая тренировка", "Открытый класс", "Тренировка выходного дня"] }
   }
 };
 const LOCAL_PREVIEW = location.protocol === "file:" || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
@@ -544,9 +529,9 @@ function newShift(type) {
     styles: [], coaches: [], included: [], program: [], schedule: [], groups: [], staff: [], contact: "", packing: [], video: "", closeDaysRaw: "", cover: "", taken: 0 };
 }
 function openEditor(s) {
-  s = { ...s, type: "camp" };
+  s = { ...s, type: s.type || "camp" };
   E = { ...s, poster: null, removePoster: false };
-  $("#ed-title").textContent = s.id ? s.title : "Новый лагерь";
+  $("#ed-title").textContent = s.id ? s.title : (s.type === "training" ? "Новая тренировка" : "Новый лагерь");
   $("#e-title").value = s.title || ""; $("#e-start").value = s.start || ""; $("#e-end").value = s.type === "camp" ? (s.end || "") : "";
   $("#e-price").value = s.price ?? ""; $("#e-cap").value = s.capacity ?? 50; $("#e-short").value = s.short || ""; $("#e-long").value = s.long || "";
   $("#e-open").checked = s.open !== false;
@@ -561,18 +546,25 @@ function openEditor(s) {
   showEditor();
 }
 function showEditor() { $("#v-list").hidden = true; $("#v-edit").hidden = false; scrollTo(0, 0); $("#ed-title").focus?.(); }
-function setType(type, init) {
-  const prev = "camp"; E.type = "camp";
+function setType(type, init = false) {
+  if (!CONFIG.DEFAULTS[type]) type = "camp";
+  const prev = E?.type || "camp";
+  E.type = type;
   $$(".type").forEach(b => b.setAttribute("aria-pressed", b.dataset.type === type));
-  $("#end-wrap").hidden = false;
-  $("#l-start").textContent = "Заезд";
-  $("#x-close").placeholder = CONFIG.DEFAULTS.camp.closeDays;
-  if (!init && prev !== type) { // поменяли тип у новой смены — подставим цену по умолчанию
-    const dp = CONFIG.DEFAULTS.camp, dn = CONFIG.DEFAULTS.camp;
-    if (!$("#e-price").value || +$("#e-price").value === dp.price) $("#e-price").value = dn.price;
-    if (!E.id) $("#ed-title").textContent = "Новый лагерь";
+  const training = type === "training";
+  $("#end-wrap").hidden = training;
+  $("#l-start").textContent = training ? "Дата тренировки" : "Заезд";
+  $("#x-close").placeholder = CONFIG.DEFAULTS[type].closeDays;
+  if (training) $("#e-end").value = "";
+  if (!init && prev !== type) {
+    const previousDefault = CONFIG.DEFAULTS[prev]?.price;
+    if (!$("#e-price").value || +$("#e-price").value === previousDefault) $("#e-price").value = CONFIG.DEFAULTS[type].price;
+    if (type === "camp" && $("#e-start").value && !$("#e-end").value) {
+      const d = pd($("#e-start").value); d.setDate(d.getDate() + 3); $("#e-end").value = iso(d);
+    }
+    if (!E.id) $("#ed-title").textContent = type === "training" ? "Новая тренировка" : "Новый лагерь";
   }
-  $("#title-chips").innerHTML = $("#e-title").value ? "" : CONFIG.DEFAULTS.camp.titles.map(t => `<button type="button" class="chip" data-title="${esc(t)}">${esc(t)}</button>`).join("");
+  $("#title-chips").innerHTML = $("#e-title").value ? "" : CONFIG.DEFAULTS[type].titles.map(t => `<button type="button" class="chip" data-title="${esc(t)}">${esc(t)}</button>`).join("");
   update();
 }
 function renderPoster() {
@@ -711,7 +703,7 @@ function route() {
   const h = location.hash;
   if (E && (h.startsWith("#edit=") || h.startsWith("#new="))) return showEditor();
   E = null; $("#v-edit").hidden = true; $("#v-list").hidden = false;
-  if (h.startsWith("#new=")) return openEditor(newShift("camp"));
+  if (h.startsWith("#new=")) return openEditor(newShift(h.slice(5) === "training" ? "training" : "camp"));
   loadList();
 }
 addEventListener("hashchange", () => { if (!$("#app").hidden) route(); });

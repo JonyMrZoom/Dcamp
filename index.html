@@ -21,7 +21,18 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Дело Ритма">
-<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px)}</style>
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px)}
+/* Final responsive and accessibility polish */
+:root{--bg:#F5F4F0;--paper:#fff;--surface:#ECEBE6;--surface-2:#E3E2DB;--ink:#171916;--muted:#666C64;--line:#E1E3DC;--yellow:#F06A3C;--on-yellow:#fff;--yellow-soft:#FCEBE4;--focus:#E45B31;--r-sm:12px;--r-md:18px;--r-lg:26px;--shadow:0 16px 44px -32px rgba(18,24,18,.48)}
+html{scroll-padding-top:88px;-webkit-text-size-adjust:100%}body{min-width:320px;background:var(--bg);overflow-x:hidden}button,a,input,textarea,select{-webkit-tap-highlight-color:transparent;touch-action:manipulation}img,video,iframe{max-width:100%}.wrap{width:min(100% - 40px,1160px);padding-left:0;padding-right:0}.appbar{box-shadow:0 1px 0 rgba(23,25,22,.04)}.logo img{object-fit:contain}.topnav{align-items:center}.btn{min-height:50px;transition:transform .16s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease}.btn:focus-visible,.round:focus-visible,.ri:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.btn.primary{background:var(--yellow);color:#201914}.btn.primary:hover{background:#F47B53;filter:none}.hero-sheet{isolation:isolate;box-shadow:0 22px 56px -36px rgba(0,0,0,.5)}.hero-sheet::before{z-index:-1;background:linear-gradient(90deg,rgba(13,18,14,.84) 0%,rgba(13,18,14,.58) 48%,rgba(13,18,14,.12) 100%),linear-gradient(0deg,rgba(13,18,14,.42),transparent 65%)}.hero-k{color:#FFD18A}.hero-cta .btn.primary{background:#C8F169;color:#182015}.hero-cta .btn.primary:hover{background:#D9FA91}.hc,.planner,.rv,.month,.tell,.place,.offer-side,.sh-side,.kid-list,.upsell,.offer{box-shadow:var(--shadow)}.hc{overflow:hidden}.hc-cover{background-color:#E8E7E1;background-position:center;background-size:cover}.hc-body{min-width:0}.hc-title,.hero-word{overflow-wrap:anywhere}.ri{min-width:0}.ri-main small{flex-wrap:wrap}.panel{max-width:min(100%,760px)}.screen{overscroll-behavior:contain}input,textarea,select{max-width:100%;font-size:16px}.gallery img,.mosaic img,.clip img{object-fit:cover}.dock{z-index:29}.tabbar{padding-bottom:max(env(safe-area-inset-bottom,0px),4px)}
+@media(min-width:1200px){.hero-sheet{min-height:590px}.hero-word{font-size:clamp(76px,8vw,112px)}}
+@media(min-width:760px) and (max-width:959px){.wrap{width:min(100% - 48px,900px)}.hero-sheet{min-height:440px}.home-grid{gap:24px}}
+@media(max-width:759px){.wrap{width:calc(100% - 32px)}.appbar .wrap{min-height:62px;gap:8px}.logo img{height:40px;max-width:132px}.bar-right [data-pick]{min-height:42px;padding:0 14px;font-size:13px}.hero{margin:8px 0 28px}.hero-sheet{min-height:430px;padding:26px 22px;border-radius:20px;background-position:58% center;gap:13px}.hero-word{font-size:clamp(48px,12.5vw,76px);letter-spacing:-.065em;line-height:.94}.hero-sub{font-size:16px;max-width:35ch}.hero-cta{display:flex;flex-direction:column;align-items:stretch}.hero-cta .btn{width:100%;min-height:50px}.view{padding-top:16px;padding-bottom:34px}.sec-title{gap:8px;align-items:flex-start;flex-wrap:wrap}.sec-title h2{font-size:21px}.hc-body{padding:18px;gap:14px}.hc-stats>div{padding:11px 10px}.hc-stats b{font-size:17px;white-space:normal}.hc-stats small{font-size:12px}.ri{grid-template-columns:46px minmax(0,1fr);gap:10px;padding:12px 6px}.ri-date{width:46px;height:48px}.ri-side{grid-column:2;text-align:left;display:flex;gap:8px;align-items:center;white-space:normal}.ri-side b,.ri-side small{display:inline;font-size:13px}.chan{align-items:flex-start}.rv-grid{scroll-padding-inline:16px}.panel{width:100%;max-height:100%;border-radius:20px 20px 0 0}.screen{padding:0;align-items:end}.dock{right:14px;bottom:calc(var(--tabbar) + env(safe-area-inset-bottom,0px) + 12px)}.tabbar{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:420px){.wrap{width:calc(100% - 28px)}.hero-sheet{min-height:390px;padding:22px 18px}.hero-word{font-size:clamp(44px,12vw,58px)}.hc-stats.three{grid-template-columns:repeat(3,minmax(0,1fr))}.hc-stats.three>div{padding:10px 7px}.hc-stats.three b{font-size:15px}.hc-stats.three small{font-size:11px}.msg-btns{grid-template-columns:1fr}}
+@media(max-width:360px){.logo img{max-width:108px;height:36px}.bar-right [data-pick]{padding:0 10px;font-size:12px}.hc-stats{grid-template-columns:1fr 1fr}.hc-stats.three{grid-template-columns:1fr 1fr}.hc-stats .wide-only{display:none!important}}
+@media(hover:none){.ri:hover{transform:none;background:transparent;border-color:transparent}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+</style>
 <title>Дело Ритма</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap">
@@ -1213,39 +1224,6 @@ body{background:var(--bg)}
 }
 @media (prefers-reduced-motion:reduce){.logo img{animation:none}.logo:hover img{transform:none}}
 </style>
-<style id="delo-polish-v1">
-/* Дело Ритма — финальная визуальная система и адаптивные страховки */
-:root{--bg:#F7F8F3;--paper:#fff;--surface:#F0F3EC;--surface-2:#E8EDE4;--ink:#18221B;--muted:#68746B;--line:#E1E8DE;--yellow:#C9F06B;--yellow-soft:#F1F8DF;--blue:#2E7057;--focus:#2E7057;--shadow:0 18px 48px -34px rgba(23,43,28,.34)}
-html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{min-width:320px;overflow-x:hidden;background:var(--bg);color:var(--ink)}
-img,video,iframe{max-width:100%}
-button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
-button,a{touch-action:manipulation}
-.wrap{width:min(100% - 40px,1120px)}
-.appbar{box-shadow:0 1px 0 rgba(24,34,27,.035)}
-.appbar .wrap{gap:clamp(12px,2vw,24px)}
-.logo img{object-fit:contain}
-.hero{margin-top:24px}
-.hero-sheet{border-radius:28px;min-height:clamp(500px,56vw,620px);background-position:right center;background-size:auto 100%;}
-.hero-event{border-radius:22px}
-.btn{border-radius:14px;min-height:50px;transition:transform .16s ease,background-color .16s ease,box-shadow .16s ease}
-.btn:focus-visible,.round:focus-visible,a:focus-visible{outline:3px solid #2E7057;outline-offset:3px}
-.btn.primary,.btn.yellow{background:var(--yellow);color:#18221B;box-shadow:0 5px 0 rgba(94,125,49,.10)}
-.btn.primary:hover,.btn.yellow:hover{background:#D8F78E;transform:translateY(-1px)}
-.hc,.planner,.rv,.month,.tell,.place,.offer-side,.sh-side,.kid-list,.upsell{border-radius:22px}
-.hc{background:#fff;border:1px solid var(--line)}
-.hc-stats>div{border-radius:14px}
-input,select,textarea{max-width:100%;font:inherit}
-input:not([type=checkbox]):not([type=radio]),select,textarea{border-radius:13px}
-:focus-visible{scroll-margin-block:100px}
-@media(min-width:1100px){.wrap{max-width:1120px}.hero-sheet{min-height:590px}.hero{margin-top:28px}}
-@media(max-width:899px){.wrap{width:min(100% - 32px,720px)}.hero{margin-top:14px}.hero-sheet{min-height:560px;background-position:center;background-size:cover}.hero-sheet::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.84) 58%,rgba(255,255,255,.25));pointer-events:none}.hero-sheet>*{position:relative;z-index:1}}
-@media(max-width:599px){body{font-size:15px}.wrap{width:calc(100% - 28px);padding-left:0;padding-right:0}.appbar .wrap{min-height:62px}.logo img{height:36px}.hero{margin-top:10px}.hero-sheet{min-height:0;padding:22px 16px 18px;border-radius:20px;background-position:center;background-size:cover}.hero-sheet::after{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.86) 55%,rgba(255,255,255,.76))}.hero-word{font-size:clamp(48px,14vw,68px)}.hero-event{padding:16px;border-radius:17px}.hero-event h2{font-size:clamp(23px,7vw,30px)}.sec-title{margin-top:28px}.sec-title h2{font-size:19px}.btn{min-height:48px}.dock-btn{bottom:calc(12px + env(safe-area-inset-bottom,0px))}.view{padding-bottom:18px}}
-@media(max-width:380px){.wrap{width:calc(100% - 24px)}.hero-sheet{padding:18px 13px}.hero-event{padding:14px}.hero-word{font-size:46px}}
-@media(hover:hover){.hc:hover,.place:hover,.rv:hover{border-color:#C9D8C7;transform:translateY(-2px);transition:transform .18s ease,border-color .18s ease}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-sheet,.hero-event,.hc,.place,.rv,.btn{animation:none!important;transition:none!important}}
-</style>
-
 </head>
 <body>
 
