@@ -187,3 +187,9 @@ main.wrap{max-width:1320px}
  .pf-action{padding-inline:10px;font-size:11px}
 }
 @media(prefers-reduced-motion:reduce){.pf-card{transition:none}}
+
+
+.pf-total{margin-top:4px;padding-top:14px;border-top:1px solid #dfe3d9}
+.pf-total b{font-size:21px;color:#171b15}
+.w-step .sum .pf-total{margin-top:4px}
+.w-step .sum .pf-total b{font-size:20px}
