@@ -2184,13 +2184,61 @@ function route() {
 }
 
 /* ---------- Выбор, куда записывать ---------- */
+function pickerAgeAt(birthDate, shiftStart) {
+  if (!birthDate) return null;
+  const b = pd(birthDate), d = pd(shiftStart);
+  let age = d.getFullYear() - b.getFullYear();
+  if (d.getMonth() < b.getMonth() || (d.getMonth() === b.getMonth() && d.getDate() < b.getDate())) age--;
+  return age;
+}
+function pickerShiftCard(s, birthDate) {
+  const open = canBook(s), spots = left(s);
+  const age = birthDate ? pickerAgeAt(birthDate, s.start) : null;
+  const ageText = age == null ? `Возраст ${s.ages} лет` : `${age} ${plural(age,["год","года","лет"])} на начало смены`;
+  const availability = open ? `Свободно ${spots} ${plural(spots,["место","места","мест"])}` : spots === 0 ? "Свободных мест нет" : notYetOpen(s) ? "Запись скоро откроется" : "Запись закрыта";
+  const action = open
+    ? `<button type="button" class="pf-action primary" data-book="${esc(s.id)}">Записать ребёнка</button>`
+    : spots === 0
+      ? `<button type="button" class="pf-action primary" data-wait="${esc(s.id)}" data-kind="full">В лист ожидания</button>`
+      : notYetOpen(s)
+        ? `<button type="button" class="pf-action primary" data-wait="${esc(s.id)}" data-kind="open">Сообщить об открытии</button>`
+        : "";
+  return `<article class="pf-card">
+    <div class="pf-card-top">
+      <span class="pf-date">${esc(rangeLong(s))}</span>
+      <span class="pf-spots ${open ? "available" : ""}">${esc(availability)}</span>
+    </div>
+    <div class="pf-card-main">
+      <div><p class="pf-type">${esc(typeName(s))}</p><h3>${esc(s.title)}</h3><p class="pf-meta">${esc(ageText)} · ${esc(s.place || "Тюмень")}</p></div>
+      <b class="pf-price">${rub(s.price)}<small>за ребёнка</small></b>
+    </div>
+    <div class="pf-card-foot"><button type="button" class="pf-action secondary" data-open="${esc(s.id)}">О смене</button>${action}</div>
+  </article>`;
+}
+function renderPickerResults() {
+  const birth = $("#pick-birth")?.value || "";
+  const list = camps().filter(s => {
+    if (!birth) return true;
+    const age = pickerAgeAt(birth, s.start), r = ageRange(s.ages);
+    return age >= 0 && (!r || age >= r.min && age <= r.max);
+  });
+  $("#pick-count").textContent = birth ? `Подходит смен: ${list.length}` : `Ближайшие смены: ${list.length}`;
+  $("#pick-results").innerHTML = list.length
+    ? list.map(s => pickerShiftCard(s, birth)).join("")
+    : `<div class="pf-empty"><b>Пока нет смен для этого возраста</b><span>Проверьте дату рождения или посмотрите все доступные смены.</span><button type="button" class="pf-action secondary" data-pick-clear>Показать все смены</button></div>`;
+}
 function openPicker() {
   lastFocus = document.activeElement; current = null;
-  const group = (title, list) => list.length ? `<p class="eyebrow">${title}</p><div class="list">${list.map(s => rowItem(s, canBook(s) ? "data-book" : "data-open")).join("")}</div>` : "";
-  $("#shift-panel").className = "panel";
-  $("#shift-panel").innerHTML = `<div class="pick-head"><h2 id="sh-title" tabindex="-1">Куда записываем?</h2><button class="round" data-close-shift aria-label="Закрыть">${ICON_X}</button></div>
-    <div class="pick-body">${group("Лагерь", camps())}</div>`;
+  $("#shift-panel").className = "panel pf-panel";
+  $("#shift-panel").innerHTML = `<div class="pick-head pf-head"><div><p class="pf-eyebrow">Дело Ритма · набор на смены</p><h2 id="sh-title" tabindex="-1">Подберём смену?</h2><p class="pf-intro">Укажите дату рождения ребёнка — покажем варианты, где он подходит по возрасту.</p></div><button class="round" data-close-shift aria-label="Закрыть">${ICON_X}</button></div>
+    <div class="pick-body pf-body">
+      <div class="pf-filter"><label for="pick-birth">Дата рождения ребёнка <span>необязательно</span></label><div class="pf-input-row"><input id="pick-birth" type="date" max="${iso(today0())}" autocomplete="bday"><button type="button" class="pf-clear" data-pick-clear>Сбросить</button></div><p>Возраст считаем на дату начала каждой смены. Окончательно проверим его в анкете.</p></div>
+      <div class="pf-results-head"><b>Смены</b><span id="pick-count"></span></div>
+      <div class="pf-results" id="pick-results"></div>
+    </div>`;
+  $("#pick-birth").addEventListener("input", renderPickerResults);
   showScreen($("#shift-screen")); $("#shift-panel").scrollTop = 0;
+  renderPickerResults();
   $("#sh-title").focus();
 }
 
