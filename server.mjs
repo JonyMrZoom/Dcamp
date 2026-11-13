@@ -358,9 +358,10 @@ const BOOKING_LIST_SQL = `
    COALESCE(json_agg(json_build_object(
      'id',c.id,'firstName',c.first_name,'lastName',c.last_name,'birthDate',c.birth_date,
      'age',c.age_at_shift,'coach',c.coach,'style',c.dance_style,'allergies',c.allergies,
-     'restrictions',c.restrictions,'certificateStatus',c.certificate_status,'certificateLegacyUrl',c.certificate_legacy_url
+     'restrictions',c.restrictions,'certificateStatus',c.certificate_status,'certificateLegacyUrl',c.certificate_legacy_url,'documentId',d.id
    )) FILTER(WHERE c.id IS NOT NULL),'[]'::json) children
  FROM bookings b JOIN shifts s ON s.id=b.shift_id LEFT JOIN children c ON c.booking_id=b.id
+ LEFT JOIN child_documents d ON d.child_id=c.id
 `;
 app.get("/api/admin/bookings", requireAdmin, async (req, res, next) => {
   try {
