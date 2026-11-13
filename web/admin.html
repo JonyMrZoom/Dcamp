@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#171916">
+<title>Кабинет организатора · Дело Ритма</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin.css">
+</head>
+<body class="admin-body">
+<section class="auth-screen" id="authScreen">
+ <div class="auth-visual"><div class="auth-brand"><span class="brand-square">ДР</span><span>ДЕЛО<br>РИТМА</span></div><div class="auth-visual-copy"><p>ОРГАНИЗАТОРСКАЯ</p><h1>ВСЁ<br>ПОД<br><em>КОНТРОЛЕМ.</em></h1><span>Смены · Участники · Трансфер · Документы</span></div><div class="auth-foot">CAMP OPERATIONS · 2026</div></div>
+ <form class="auth-form" id="loginForm"><div class="auth-form-inner"><p class="admin-eyebrow">ЗАЩИЩЁННЫЙ ДОСТУП</p><h2>ВОЙТИ<br>В КАБИНЕТ.</h2><p class="auth-description">Управляйте сменами и заявками в одном месте.</p>
+  <label>Email<input name="email" type="email" autocomplete="username" placeholder="admin@deloritma.ru" required></label>
+  <label>Пароль<input name="password" type="password" autocomplete="current-password" placeholder="Введите пароль" required></label>
+  <p class="auth-error" id="loginError" hidden></p><button class="admin-primary" type="submit">Войти в систему <span>↗</span></button>
+  <a class="auth-back" href="/">← На публичный сайт</a>
+ </div></form>
+</section>
+
+<div class="admin-app" id="adminApp" hidden>
+ <aside class="sidebar">
+  <a class="admin-brand" href="/admin"><span class="brand-square">ДР</span><span>ДЕЛО<br>РИТМА</span></a>
+  <p class="sidebar-label">РАБОЧЕЕ ПРОСТРАНСТВО</p>
+  <nav class="side-nav">
+   <button class="nav-item active" data-view="overview"><span class="nav-icon">◫</span>Обзор</button>
+   <button class="nav-item" data-view="shifts"><span class="nav-icon">▦</span>Смены</button>
+   <button class="nav-item" data-view="participants"><span class="nav-icon">◉</span>Участники</button>
+   <button class="nav-item" data-view="transfers"><span class="nav-icon">↗</span>Трансфер</button>
+   <button class="nav-item" data-view="migration"><span class="nav-icon">⇧</span>Перенос данных</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="cloud-status"><i></i><span>ОБЛАЧНАЯ БАЗА<br><b>ПОДКЛЮЧЕНА</b></span></div><button class="logout-button" id="logoutButton">Выйти из кабинета ↗</button></div>
+ </aside>
+ <main class="admin-main">
+  <header class="admin-topbar"><div><p class="admin-eyebrow" id="breadcrumb">РАБОЧИЙ СТОЛ / ОБЗОР</p><h1 id="pageTitle">Обзор</h1></div><div class="admin-user"><span class="user-avatar">DR</span><span><b id="adminName">Организатор</b><small>Владелец системы</small></span></div></header>
+  <div class="admin-content">
+   <section class="view-panel active" id="view-overview">
+    <div class="welcome-line"><div><p class="admin-eyebrow">СЕГОДНЯ В ДЕЛЕ РИТМА</p><h2>ДЕРЖИМ<br><em>РИТМ.</em></h2></div><button class="admin-primary" data-new-shift>＋ Новая смена</button></div>
+    <div class="metrics-grid" id="metricsGrid"><div class="metric-skeleton"></div><div class="metric-skeleton"></div><div class="metric-skeleton"></div><div class="metric-skeleton"></div></div>
+    <div class="overview-grid"><section class="admin-card"><div class="card-heading"><div><p class="admin-eyebrow">РАСПИСАНИЕ</p><h3>Ближайшие смены</h3></div><button class="mini-link" data-go-view="shifts">Все смены ↗</button></div><div id="overviewShifts" class="overview-shifts"></div></section>
+    <section class="admin-card"><div class="card-heading"><div><p class="admin-eyebrow">ЗАЯВКИ</p><h3>Последние регистрации</h3></div><button class="mini-link" data-go-view="participants">Все участники ↗</button></div><div id="overviewBookings" class="overview-bookings"></div></section></div>
+   </section>
+
+   <section class="view-panel" id="view-shifts">
+    <div class="panel-toolbar"><div><p class="admin-eyebrow">РАСПИСАНИЕ И НАБОР</p><h2>Управление сменами</h2></div><button class="admin-primary" data-new-shift>＋ Добавить смену</button></div>
+    <div class="shift-admin-grid" id="adminShifts"></div>
+   </section>
+
+   <section class="view-panel" id="view-participants">
+    <div class="panel-toolbar"><div><p class="admin-eyebrow">ЗАЯВКИ И СПИСОК ГРУППЫ</p><h2>Участники</h2></div><div class="export-actions"><button class="admin-outline" id="exportParticipants">↓ Excel · участники</button><button class="admin-primary" id="exportTransfer">↓ Word · трансфер</button></div></div>
+    <div class="filters-bar"><label class="search-field">⌕ <input id="participantSearch" placeholder="Найти ребёнка, родителя или заявку"></label><select id="filterShift"><option value="">Все смены</option></select><select id="filterStatus"><option value="all">Все статусы</option><option value="new">Новая</option><option value="confirmed">Подтверждена</option><option value="paid">Оплачена</option><option value="cancelled">Отменена</option></select></div>
+    <div class="table-wrap"><table class="participants-table"><thead><tr><th>Участник / заявка</th><th>Родитель</th><th>Смена</th><th>Трансфер</th><th>Статус</th><th></th></tr></thead><tbody id="participantRows"><tr><td colspan="6" class="table-empty">Загрузка данных…</td></tr></tbody></table></div>
+    <p class="table-foot" id="participantsCount"></p>
+   </section>
+
+   <section class="view-panel" id="view-transfers">
+    <div class="panel-toolbar"><div><p class="admin-eyebrow">ЛОГИСТИКА И ПОСАДКА</p><h2>Трансфер</h2></div></div>
+    <div class="transfer-intro"><div class="transfer-icon">↗</div><div><b>Сформируй список на автобус</b><p>Система соберёт участников, которым нужен трансфер, и подготовит документ Word с местом для маршрута, времени, отметок посадки и возвращения.</p></div></div>
+    <div class="transfer-shifts" id="transferShifts"></div>
+   </section>
+
+   <section class="view-panel" id="view-migration">
+    <div class="panel-toolbar"><div><p class="admin-eyebrow">ПЕРЕНОС ИЗ СТАРОЙ СИСТЕМЫ</p><h2>Импорт данных</h2></div></div>
+    <div class="migration-card"><div class="migration-mark">XLSX</div><h3>Перенести данные из Google Таблицы</h3><p>Скачайте старую таблицу как Excel-файл. Импорт прочитает листы «Смены» и «Заявки», перенесёт расписание, участников и статусы. Повторная загрузка того же файла не создаст дубликаты.</p>
+      <ol><li>Откройте старую Google Таблицу.</li><li>Файл → Скачать → Microsoft Excel (.xlsx).</li><li>Загрузите файл сюда.</li></ol>
+      <form id="migrationForm"><label class="file-drop"><input type="file" name="workbook" accept=".xlsx" required><span>＋</span><b>Выбрать Excel-файл</b><small>Формат .xlsx, до 20 МБ</small></label><button class="admin-primary" type="submit" id="importButton">Импортировать в облачную базу ↗</button></form>
+      <p class="migration-result" id="migrationResult" hidden></p>
+      <p class="migration-warning">Импорт копирует данные в новую базу и не удаляет исходную Google Таблицу. Старую систему отключим после проверки переноса.</p>
+    </div>
+   </section>
+  </div>
+ </main>
+</div>
+
+<dialog class="shift-editor" id="shiftEditor"><form id="shiftForm"><header><div><p class="admin-eyebrow">КОНСТРУКТОР СМЕНЫ</p><h2 id="shiftEditorTitle">Новая смена</h2></div><button type="button" class="close-editor" data-close-editor>×</button></header>
+ <div class="editor-grid">
+  <label class="wide">Название смены<input name="title" required placeholder="Например, Летняя смена"></label>
+  <label>Дата начала<input name="startDate" type="date" required></label><label>Дата окончания<input name="endDate" type="date" required></label>
+  <label>Цена за ребёнка, ₽<input name="price" type="number" min="0" required></label><label>Количество мест<input name="capacity" type="number" min="1" required></label>
+  <label>Возраст от<input name="ageMin" type="number" min="1" required></label><label>Возраст до<input name="ageMax" type="number" min="1" required></label>
+  <label class="wide">Место проведения<input name="place" placeholder="Тюмень / название базы"></label>
+  <label class="wide">Краткое описание<textarea name="shortDescription" rows="2"></textarea></label>
+  <label class="wide">Подробно о смене<textarea name="description" rows="3"></textarea></label>
+  <label>Танцевальные направления<input name="styles" placeholder="Брейкинг; All styles"></label><label>Тренеры<input name="coaches" placeholder="Имена через ;"></label>
+  <label>Возрастные группы<input name="groups" placeholder="KIDS; PRO"></label><label>Ссылка на обложку<input name="coverUrl" type="url" placeholder="https://…"></label>
+  <label class="wide">Программа (по одному пункту в строке)<textarea name="program" rows="3"></textarea></label>
+  <label class="wide">Что входит в стоимость (по одному пункту в строке)<textarea name="included" rows="3"></textarea></label>
+  <label class="wide">Информация о трансфере<textarea name="transferInfo" rows="2"></textarea></label>
+  <label class="wide">Распорядок дня (по одному пункту в строке)<textarea name="schedule" rows="3"></textarea></label>
+  <label class="toggle-line"><input name="openForBooking" type="checkbox" checked><span>Открыть запись</span></label><label class="toggle-line"><input name="published" type="checkbox" checked><span>Опубликовать на сайте</span></label>
+ </div><p class="editor-error" id="shiftEditorError" hidden></p><footer><button type="button" class="admin-outline" data-close-editor>Отмена</button><button class="admin-primary" id="saveShiftButton" type="submit">Сохранить смену ↗</button></footer>
+</form></dialog>
+<div class="admin-toast" id="adminToast"></div>
+<script src="/admin.js" defer></script>
+</body>
+</html>
