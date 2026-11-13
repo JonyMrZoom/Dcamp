@@ -1,7 +1,7 @@
 /* Дело Ритма — сервис-воркер: приложение открывается без интернета и показывает последнюю загруженную афишу.
    При каждом обновлении сайта увеличьте номер версии ниже, чтобы телефоны подтянули новую версию. */
-const VERSION = "dr-v33";
-const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./apple-theme.css", "./booking-experience.css"];
+const VERSION = "dr-v34";
+const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./apple-theme.css", "./booking-experience.css", "./experience-v2.css"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
