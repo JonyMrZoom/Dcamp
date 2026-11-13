@@ -106,6 +106,7 @@ async function migrate() {
   await pool.query(sql);
   const email = text(process.env.ADMIN_EMAIL).toLowerCase();
   const password = text(process.env.ADMIN_PASSWORD);
+  if (!email || !password || password === "change-this-before-launch") throw new Error("Set ADMIN_EMAIL and ADMIN_PASSWORD before starting the application");
   if (email && password && password !== "change-this-before-launch") {
     const hash = scryptHash(password);
     await pool.query(
