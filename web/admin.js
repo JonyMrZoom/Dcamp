@@ -44,6 +44,8 @@ document.addEventListener("click",e=>{
  const edit=e.target.closest("[data-edit-shift]");if(edit)openShiftEditor(shifts.find(s=>s.id===edit.dataset.editShift));
  const del=e.target.closest("[data-delete-shift]");if(del)deleteShift(del.dataset.deleteShift);
  const close=e.target.closest("[data-close-editor]");if(close)$("#shiftEditor").close();
+ const closeDetail=e.target.closest("[data-close-detail]");if(closeDetail)$("#bookingDetail").close();
+ const detail=e.target.closest("[data-booking-detail]");if(detail){const booking=bookings.find(b=>b.id===detail.dataset.bookingDetail);if(booking)openBookingDetail(booking);return;}
  const roster=e.target.closest("[data-roster]");if(roster){$("#filterShift").value=roster.dataset.roster;setView("participants");loadBookings();}
  const transfer=e.target.closest("[data-transfer-export]");if(transfer)downloadExport(`/api/admin/exports/shifts/${transfer.dataset.transferExport}/transfer.docx`);
 });
@@ -140,6 +142,23 @@ async function loadBookings(){
  }catch(e){$("#participantRows").innerHTML=`<tr><td class="table-empty" colspan="6">${escapeHtml(e.message)}</td></tr>`;}
 }
 function childLabel(children){return (children||[]).map(c=>c.firstName+" "+c.lastName).join(", ");}
+function openBookingDetail(b){
+ const children=(b.children||[]).map(c=>'<article class="detail-child"><div><b>'+escapeHtml(c.firstName)+' '+escapeHtml(c.lastName)+'</b><small>'+escapeHtml(date(c.birthDate))+' · '+c.age+' лет</small></div>'
+  +'<p><span>Тренер</span>'+escapeHtml(c.coach||"—")+'</p><p><span>Направление</span>'+escapeHtml(c.style||"—")+'</p>'
+  +'<p><span>Аллергии</span>'+escapeHtml(c.allergies||"—")+'</p><p><span>Ограничения</span>'+escapeHtml(c.restrictions||"—")+'</p>'
+  +'<p><span>Свидетельство</span>'+escapeHtml(({uploaded:"Загружено",send_later:"Пришлют позже",legacy_link:"Ссылка из старой базы",not_provided:"Не приложено"})[c.certificateStatus]||"—")+'</p>'
+  +(c.documentId?'<button type="button" class="mini-link" data-download-document="'+c.documentId+'">Скачать документ ↗</button>':"")
+  +(c.certificateLegacyUrl?'<a class="mini-link" href="'+escapeHtml(c.certificateLegacyUrl)+'" target="_blank" rel="noopener">Открыть документ из старой базы ↗</a>':"")
+  +'</article>').join("");
+ $("#bookingDetailTitle").textContent=b.code;
+ $("#bookingDetailContent").innerHTML='<div class="detail-overview"><div><small>РОДИТЕЛЬ</small><b>'+escapeHtml(b.parent_name)+'</b><span>'+escapeHtml(b.phone)+'</span></div>'
+  +'<div><small>СМЕНА</small><b>'+escapeHtml(b.shift_title)+'</b><span>'+escapeHtml(date(b.start_date))+' — '+escapeHtml(date(b.end_date))+'</span></div>'
+  +'<div><small>СТАТУС</small><b>'+escapeHtml(statuses[b.status]||b.status)+'</b><span>'+(b.transfer_requested?"Трансфер нужен":"Без трансфера")+'</span></div></div>'
+  +'<div class="detail-children"><p class="admin-eyebrow">УЧАСТНИКИ · '+(b.children||[]).length+'</p>'+children+'</div>'
+  +(b.comment?'<div class="detail-note"><small>КОММЕНТАРИЙ</small><p>'+escapeHtml(b.comment)+'</p></div>':"")
+  +(b.transfer_note?'<div class="detail-note"><small>ПО ТРАНСФЕРУ</small><p>'+escapeHtml(b.transfer_note)+'</p></div>':"");
+ $("#bookingDetail").showModal();
+}
 function renderBookings(){
  const rows=$("#participantRows");
  if(!bookings.length){rows.innerHTML='<tr><td colspan="6" class="table-empty">По выбранным фильтрам заявок нет.</td></tr>';}
@@ -177,6 +196,10 @@ async function downloadExport(url){
   toast("Файл сформирован");
  }catch(error){toast(error.message);}
 }
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-download-document]");
+ if(b)downloadExport("/api/admin/documents/"+b.dataset.downloadDocument);
+});
 $("#exportParticipants").addEventListener("click",()=>{
  const id=$("#filterShift").value;if(!id){toast("Выбери смену в фильтре выше");return;}
  downloadExport("/api/admin/exports/shifts/"+id+"/participants.xlsx");
